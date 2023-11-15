@@ -22,17 +22,17 @@ jobs:
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
-          CC_TEST_REPORTER_ID: ${{SECRET_CC_TEST_REPORTER_ID}}
+          CC_TEST_REPORTER_ID: ${{secrets.SECRET_CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: app/src/main/java
         with:
           coverageCommand: make report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
 
-security:
-  runs-on: ubuntu-latest
+#security:
+  #  runs-on: ubuntu-latest
 
-  steps:
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
-      env:
-        SNYK_TOKEN: ${{ secrets.MY_FIRST_SECRET }}
+      #steps:
+      #- name: Run Snyk to check for vulnerabilities
+      #uses: snyk/actions/node@master
+        # env:
+        #SNYK_TOKEN: ${{ secrets.MY_FIRST_SECRET }}

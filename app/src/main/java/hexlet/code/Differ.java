@@ -3,7 +3,11 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) throws Exception {
@@ -12,7 +16,7 @@ public class Differ {
         Map<String, Object> preparedDataFromFile2 = getData(filepath2);
 
         //словарь с изменениями:
-        Map<String, Object> changes = genDiff(preparedDataFromFile1,preparedDataFromFile2);
+        Map<String, Object> changes = genDiff(preparedDataFromFile1, preparedDataFromFile2);
 
         return genToString(changes);
     }
@@ -53,20 +57,20 @@ public class Differ {
         for (String key : keys) {
             if (!data1.containsKey(key)) {
                 var addedValue = data2.get(key);
-                String addedKey = " + " + key;
+                String addedKey = "  + " + key;
                 result.put(addedKey, addedValue);
             } else if (!data2.containsKey(key)) {
                 var deletedValue = data1.get(key);
-                String deletedKey = " - " + key;
+                String deletedKey = "  - " + key;
                 result.put(deletedKey, deletedValue);
             } else if (data1.containsKey(key) && data2.containsKey(key)) {
                 if (!data1.get(key).equals(data2.get(key))) {
-                    String changedKey1 = " - " + key;
-                    String changedKey2 = " + " + key;
+                    String changedKey1 = "  - " + key;
+                    String changedKey2 = "  + " + key;
                     result.put(changedKey1, data1.get(key));
                     result.put(changedKey2, data2.get(key));
                 } else {
-                    String sameKey = "   " + key;
+                    String sameKey = "    " + key;
                     result.put(sameKey, data1.get(key));
                 }
             }
@@ -82,6 +86,6 @@ public class Differ {
             result.append(entry.getKey() + ": " + entry.getValue());
             result.append("\n");
         }
-        return result.append("}\n").toString();
+        return result.append("}").toString();
     }
 }

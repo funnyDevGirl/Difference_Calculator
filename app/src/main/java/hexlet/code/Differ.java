@@ -86,6 +86,6 @@ public class Differ {
             result.append(entry.getKey() + ": " + entry.getValue());
             result.append("\n");
         }
-        return result.append("}\n").toString();
+        return result.append("}").toString();
     }
 }

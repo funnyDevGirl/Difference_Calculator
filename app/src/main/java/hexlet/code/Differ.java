@@ -21,7 +21,7 @@ public class Differ {
         return genToString(changes);
     }
 
-    private static Map getData(String filePath) throws Exception {
+    private static Map<String, Object> getData(String filePath) throws Exception {
         Path fullPath = getFullPath(filePath);
         //проверяем сущ-е файла
         if (!Files.exists(fullPath)) {

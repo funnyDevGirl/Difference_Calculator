@@ -4,32 +4,36 @@ make run-dist:
 .DEFAULT_GOAL := build-run
 
 setup:
-	./gradlew wrapper --gradle-version 8.4
+	gradle wrapper --gradle-version 7.4
 
-run:
-	./gradlew run
-
-#clean:
-#	./gradlew clean
+clean:
+	./gradlew clean
 
 build:
-	./gradlew clean
-	./gradlew clean build
+	cd app && ./gradlew clean build
 
-#install:
-#	./gradlew clean install
-
-test-report:
-	./gradlew test
-	./gradlew jacocoTestReport
+run:
+	./gradlew run --args="-h"
 
 lint:
 	./gradlew checkstyleMain checkstyleTest
 
-check-deps:
-	./gradlew dependencyUpdates -Drevision=release
+test:
+	./gradlew test
+
+report:
+	cd app && ./gradlew jacocoTestReport
+
+install:
+	./gradlew clean install
+
+run-dist:
+	./build/install/app/bin/app -h
+
+check-updates:
+	./gradlew dependencyUpdates
 
 build-run: build run
 
 .PHONY: build
-.PHONY: test
+#.PHONY: test

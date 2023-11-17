@@ -8,7 +8,7 @@ plugins {
     id("io.freefair.lombok") version "8.4"
     id("com.github.ben-manes.versions") version "0.49.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id 'com.adarshr.test-logger' version '4.0.0'
+    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 group = 'hexlet.code'
@@ -28,7 +28,6 @@ dependencies {
     annotationProcessor 'info.picocli:picocli-codegen:4.7.5'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.0-rc1'
-    implementation 'com.adarshr.test-logger:com.adarshr.test-logger.gradle.plugin:4.0.0'
 }
 
 test {

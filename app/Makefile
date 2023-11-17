@@ -6,25 +6,21 @@ make run-dist:
 setup:
 	./gradlew wrapper --gradle-version 8.4
 
-clean:
-	./gradlew clean
-
-build:
-	./gradlew clean build
-
-install:
-	./gradlew clean install
-
-run-dist:
-	./build/install/java-package/bin/java-package
-
 run:
 	./gradlew run
 
-test:
-	./gradlew test
+#clean:
+#	./gradlew clean
 
-report:
+build:
+	./gradlew clean
+	./gradlew clean build
+
+#install:
+#	./gradlew clean install
+
+test-report:
+	./gradlew test
 	./gradlew jacocoTestReport
 
 lint:
@@ -33,7 +29,7 @@ lint:
 check-deps:
 	./gradlew dependencyUpdates -Drevision=release
 
-
 build-run: build run
 
 .PHONY: build
+.PHONY: test

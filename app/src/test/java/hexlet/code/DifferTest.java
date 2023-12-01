@@ -5,27 +5,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+//import java.util.List;
+//import java.util.Map;
 
 public class DifferTest {
     @Test
-    public void differJsonfTest() throws Exception {
-        String filepath1 = "src/test/resources/filepath1.json";
-        String filepath2 = "src/test/resources/filepath2.json";
+    public void differJsonTest() throws Exception {
+        String filepath4 = "src/test/resources/filepath4.json";
+        String filepath5 = "src/test/resources/filepath5.json";
+        String format = "json";
 
-        String expected = readFixture("filepath3.json");
-        String actual = Differ.generate(filepath1, filepath2);
+        String expected = readFixture("filepath6.json");
+        String actual = Differ.generate(filepath4, filepath5, format);
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    public void differYmlTest() throws Exception {
-        String filepath3 = "src/test/resources/filepath1.yml";
-        String filepath4 = "src/test/resources/filepath2.yml";
+    public void differStylishTest() throws Exception {
+        String filepath4 = "src/test/resources/filepath4.json";
+        String filepath5 = "src/test/resources/filepath5.json";
+        String format = "stylish";
 
-        String expected = readFixture("filepath3.yml");
-        String actual = Differ.generate(filepath3, filepath4);
+        String expected = readFixture("filepath6.json");
+        String actual = Differ.generate(filepath4, filepath5, format);
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void differPlainTest() throws Exception {
+        String filepath4 = "src/test/resources/filepath4.json";
+        String filepath5 = "src/test/resources/filepath5.json";
+        String format = "plain";
+
+        String expected = readFixture("filepath7.json");
+        String actual = Differ.generate(filepath4, filepath5, format);
+        assertThat(actual).isEqualTo(expected);
+    }
+
 
     private static Path getFixturePath(String fileName) {
         return Paths.get("src", "test", "resources", fileName)

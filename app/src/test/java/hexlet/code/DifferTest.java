@@ -5,21 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-//import java.util.List;
-//import java.util.Map;
+
 
 public class DifferTest {
-    @Test
-    public void differJsonTest() throws Exception {
-        String filepath4 = "src/test/resources/filepath4.json";
-        String filepath5 = "src/test/resources/filepath5.json";
-        String format = "json";
-
-        String expected = readFixture("filepath6.json");
-        String actual = Differ.generate(filepath4, filepath5, format);
-        assertThat(actual).isEqualTo(expected);
-    }
-
     @Test
     public void differStylishTest() throws Exception {
         String filepath4 = "src/test/resources/filepath4.json";

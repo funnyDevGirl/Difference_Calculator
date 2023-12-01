@@ -8,7 +8,8 @@ import java.util.TreeSet;
 import java.util.Objects;
 
 public class Comparator {
-    public static List<Map<String, Object>> genDiff(Map<String, Object> data1, Map<String, Object> data2) throws NullPointerException {
+    public static List<Map<String, Object>> genDiff(Map<String, Object> data1, Map<String, Object> data2)
+            throws NullPointerException {
         List<Map<String, Object>> result = new ArrayList<>();
         Set<String> keys = new TreeSet<>(data1.keySet());
         keys.addAll(data2.keySet());

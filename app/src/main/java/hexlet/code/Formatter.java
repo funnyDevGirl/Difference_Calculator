@@ -10,7 +10,7 @@ import java.util.Map;
 public class Formatter {
 
     public static String generateJson(List<Map<String, Object>> differences) throws Exception {
-     return JsonFormatter.render(differences);
+        return JsonFormatter.render(differences);
     }
 
     public static String generatePlain(List<Map<String, Object>> differences) throws Exception {

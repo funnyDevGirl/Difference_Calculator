@@ -25,7 +25,7 @@ report:
 	cd app && ./gradlew jacocoTestReport
 
 install:
-	cd app && ./gradlew clean install
+	./gradlew clean install
 
 run-dist:
 	./build/install/app/bin/app -h

@@ -25,7 +25,7 @@ report:
 	cd app && ./gradlew jacocoTestReport
 
 install:
-	./gradlew clean installShadowDist
+	cd app && ./gradlew clean installShadowDist
 
 run-dist:
 	./build/install/app/bin/app -h

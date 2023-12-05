@@ -1,8 +1,3 @@
-make run-dist:
-	./build/install/app/bin/app
-
-.DEFAULT_GOAL := build-run
-
 setup:
 	gradle wrapper --gradle-version 7.4
 
@@ -25,7 +20,7 @@ report:
 	cd app && ./gradlew jacocoTestReport
 
 install:
-	cd app && ./gradlew clean installShadowDist
+	./gradlew clean install
 
 run-dist:
 	./build/install/app/bin/app -h
@@ -33,7 +28,4 @@ run-dist:
 check-updates:
 	./gradlew dependencyUpdates
 
-build-run: build run
-
 .PHONY: build
-#.PHONY: test

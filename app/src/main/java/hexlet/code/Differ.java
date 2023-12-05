@@ -27,6 +27,17 @@ public class Differ {
         }
     }
 
+    //делаю перегрузку метода generate():
+    public static String generate(String filepath1, String filepath2) throws Exception {
+
+        Map<String, Object> preparedDataFromFile1 = getData(filepath1);
+        Map<String, Object> preparedDataFromFile2 = getData(filepath2);
+
+        List<Map<String, Object>> differences = Comparator.genDiff(preparedDataFromFile1, preparedDataFromFile2);
+        return Formatter.generateStylish(differences);
+    }
+
+
     private static Map<String, Object> getData(String filePath) throws Exception {
         Path fullPath = getFullPath(filePath);
         //проверяем сущ-е файла

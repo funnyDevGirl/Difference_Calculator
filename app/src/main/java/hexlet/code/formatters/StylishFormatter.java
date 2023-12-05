@@ -2,6 +2,7 @@ package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class StylishFormatter {
     private static final String ADDEDSYMBOL = "  + ";
@@ -14,27 +15,33 @@ public class StylishFormatter {
         for (Map<String, Object> map : differences) {
             for (String s : map.keySet()) {
 
-                if (map.get(s).equals("changed")) {
+                Object value = !Objects.isNull(map.get(s)) ? map.get(s) : null;
+
+                if (Objects.equals(value, "changed")) {
+
                     String value1 = stringify(map.get("oldValue"));
                     String value2 = stringify(map.get("newValue"));
 
                     result.append(REMOVEDSYMBOL + map.get("name") + ": " + value1 + "\n");
                     result.append(ADDEDSYMBOL + map.get("name") + ": " + value2 + "\n");
 
-                } else if (map.get(s).equals("added")) {
-                    String value = stringify(map.get("newValue"));
+                } else if (Objects.equals(value, "added")) {
 
-                    result.append(ADDEDSYMBOL + map.get("name") + ": " + value + "\n");
+                    String value1 = stringify(map.get("newValue"));
 
-                } else if (map.get(s).equals("deleted")) {
-                    String value = stringify(map.get("oldValue"));
+                    result.append(ADDEDSYMBOL + map.get("name") + ": " + value1 + "\n");
 
-                    result.append(REMOVEDSYMBOL + map.get("name") + ": " + value + "\n");
+                } else if (Objects.equals(value, "deleted")) {
 
-                } else if (map.get(s).equals("unchanged")) {
-                    String value = stringify(map.get("oldValue"));
+                    String value1 = stringify(map.get("oldValue"));
 
-                    result.append(NONSYMBOL + map.get("name") + ": " + value + "\n");
+                    result.append(REMOVEDSYMBOL + map.get("name") + ": " + value1 + "\n");
+
+                } else if (Objects.equals(value, "unchanged")) {
+
+                    String value1 = stringify(map.get("oldValue"));
+
+                    result.append(NONSYMBOL + map.get("name") + ": " + value1 + "\n");
                 }
             }
         }

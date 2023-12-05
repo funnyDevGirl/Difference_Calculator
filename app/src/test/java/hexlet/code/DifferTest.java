@@ -9,14 +9,25 @@ import java.nio.file.Paths;
 
 
 public class DifferTest {
+
     @Test
-    public void differStylishTest() throws Exception {
+    public void differStylishTest1() throws Exception {
         String filepath4 = "src/test/resources/filepath4.json";
         String filepath5 = "src/test/resources/filepath5.json";
         String format = "stylish";
 
         String expected = readFixture("filepath6.json");
         String actual = Differ.generate(filepath4, filepath5, format);
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void differStylishTest2() throws Exception {
+        String filepath4 = "src/test/resources/filepath4.json";
+        String filepath5 = "src/test/resources/filepath5.json";
+
+        String expected = readFixture("filepath6.json");
+        String actual = Differ.generate(filepath4, filepath5);
         assertThat(actual).isEqualTo(expected);
     }
 

@@ -61,7 +61,7 @@ public class DifferTest {
 
     private static String readFixture(String fileName) throws Exception {
         Path filePath = getFixturePath(fileName);
-        //return Files.readString(filePath).trim();
-        return Files.readString(filePath);
+        return Files.readString(filePath).trim();
+        //return Files.readString(filePath);
     }
 }

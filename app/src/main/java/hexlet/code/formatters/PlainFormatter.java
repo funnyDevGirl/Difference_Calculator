@@ -23,7 +23,7 @@ public class PlainFormatter {
                     result.append("Property ");
                     result.append(name + " was updated. From " + value1 + " to " + value2 + "\n");
 
-                } else if (Objects.equals(value,"added")) {
+                } else if (Objects.equals(value, "added")) {
 
                     String value1 = stringify(map.get("newValue"));
 
@@ -31,7 +31,7 @@ public class PlainFormatter {
                     result.append(map.get("name") + "' was added with value: ");
                     result.append(value1).append("\n");
 
-                } else if (Objects.equals(value,"deleted")) {
+                } else if (Objects.equals(value, "deleted")) {
 
                     result.append("Property '");
                     result.append(map.get("name") + "' was removed").append("\n");

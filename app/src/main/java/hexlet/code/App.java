@@ -20,6 +20,10 @@ public class App implements Callable<Integer> {
             description = "output format [default: ${DEFAULT-VALUE}]")
     private String format;
 
+    /**
+     * @return returns a string of differences between 2 files
+     * @throws Exception  if files not exist
+     */
     @Override
     public Integer call() throws Exception {
         String file =  Differ.generate(filepath1, filepath2, format);

@@ -10,6 +10,6 @@ public class JsonFormatter {
     public static String render(List<Map<String, Object>> differences) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(differences);
+        return mapper.writeValueAsString(differences) + "\n";
     }
 }

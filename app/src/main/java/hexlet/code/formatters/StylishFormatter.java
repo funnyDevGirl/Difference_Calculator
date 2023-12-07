@@ -7,7 +7,7 @@ import java.util.Objects;
 public class StylishFormatter {
     private static final String ADDEDSYMBOL = "  + ";
     private static final String REMOVEDSYMBOL = "  - ";
-    private static final String NONSYMBOL = "  ";
+    private static final String NONSYMBOL = "    ";
     public static String render(List<Map<String, Object>> differences) throws Exception {
 
         var result = new StringBuilder("{\n");

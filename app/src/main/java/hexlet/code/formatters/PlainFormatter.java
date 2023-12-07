@@ -38,7 +38,7 @@ public class PlainFormatter {
                 }
             }
         }
-        return result.toString().trim() + "\n";
+        return result.toString().trim();
     }
 
     private static String stringify(Object value) {

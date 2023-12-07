@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +36,7 @@ public class DifferTest {
         String filepath4 = "src/test/resources/filepath1.yml";
         String filepath5 = "src/test/resources/filepath2.yml";
 
-        String expected = readFixture("filepath3.yml");
+        String expected = readFixture("filepath3.json");
         String actual = Differ.generate(filepath4, filepath5);
         assertThat(actual).isEqualTo(expected);
     }
@@ -72,7 +71,7 @@ public class DifferTest {
 
     private static String readFixture(String fileName) throws Exception {
         Path filePath = getFixturePath(fileName);
-        String result = Files.readString(filePath).trim() + "\n";
+        String result = Files.readString(filePath);
         return result;
     }
 }

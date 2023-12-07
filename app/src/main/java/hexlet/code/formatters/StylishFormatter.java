@@ -10,7 +10,7 @@ public class StylishFormatter {
     private static final String NONSYMBOL = "    ";
     public static String render(List<Map<String, Object>> differences) throws Exception {
 
-        var result = new StringBuilder("{\n");
+        var result = new StringBuilder();
 
         for (Map<String, Object> map : differences) {
             for (String s : map.keySet()) {
@@ -46,7 +46,7 @@ public class StylishFormatter {
             }
         }
         //return result.append("}\n").toString().trim();
-        return result.append("}").toString();
+        return "{\n" + result + "}";
     }
 
     private static String stringify(Object value) {

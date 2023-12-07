@@ -45,8 +45,7 @@ public class StylishFormatter {
                 }
             }
         }
-        //return result.append("}\n").toString().trim();
-        return result.append("}\n").toString();
+        return result.append("}\n").toString().trim();
     }
 
     private static String stringify(Object value) {

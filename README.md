@@ -16,4 +16,4 @@ Step 9:
 https://asciinema.org/a/jWTGSP76hk3SZpOB33eItmKgp
 
 Step 10:
-https://asciinema.org/a/h1WVwlqgyez37EphNVb4CpZdT
+https://asciinema.org/a/pgBWzGXySppeyHf5jZHdpKggA

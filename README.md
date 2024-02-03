@@ -14,17 +14,4 @@
 #### • Support for different input formats: yaml and json;
 #### • Generation of the report in the form of plain text, stylish and json.
 
-Step 5:
-https://asciinema.org/a/qQbgsWoa9gtAGGJsiO1hMA9lt
-
-Step 7:
-https://asciinema.org/a/1KitnzV2S7eDCVPdfoYdfccNR
-
-Step 8:
-https://asciinema.org/a/bJms1LgU5hIJJu4JWosLJaCxV
-
-Step 9:
-https://asciinema.org/a/jWTGSP76hk3SZpOB33eItmKgp
-
-Step 10:
-https://asciinema.org/a/pgBWzGXySppeyHf5jZHdpKggA
+#### The work of the application can be viewed in [asciinema record](https://asciinema.org/a/HkCh4uNuYVz0X483fzWIppxvG)

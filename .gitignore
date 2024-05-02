@@ -1,6 +1,6 @@
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
+!app/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -13,6 +13,7 @@ build/
 *.iml
 *.ipr
 out/
+.idea/
 !**/src/main/**/out/
 !**/src/test/**/out/
 

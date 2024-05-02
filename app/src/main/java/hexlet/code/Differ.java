@@ -15,16 +15,12 @@ public class Differ {
         //словарь с изменениями:
         List<Map<String, Object>> differences = Comparator.genDiff(preparedDataFromFile1, preparedDataFromFile2);
 
-        switch (stylish) {
-            case "json":
-                return Formatter.generateJson(differences);
-            case "stylish":
-                return Formatter.generateStylish(differences);
-            case "plain":
-                return Formatter.generatePlain(differences);
-            default:
-                throw new Exception("Unknown format: '" + stylish + "'");
-        }
+        return switch (stylish) {
+            case "json" -> Formatter.generateJson(differences);
+            case "stylish" -> Formatter.generateStylish(differences);
+            case "plain" -> Formatter.generatePlain(differences);
+            default -> throw new Exception("Unknown format: '" + stylish + "'");
+        };
     }
 
     //делаю перегрузку метода generate():

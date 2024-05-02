@@ -22,14 +22,10 @@ public class Parser {
 
     // На вход идет тип данных и сами данные. Ничего про файлы!
     public static Map<String, Object> parse(String content, String dataFormat) throws Exception {
-        switch (dataFormat) {
-            case "yml":
-            case "yaml":
-                return parseYaml(content);
-            case "json":
-                return parseJson(content);
-            default:
-                throw new Exception("Unknown format: '" + dataFormat + "'");
-        }
+        return switch (dataFormat) {
+            case "yml", "yaml" -> parseYaml(content);
+            case "json" -> parseJson(content);
+            default -> throw new Exception("Unknown format: '" + dataFormat + "'");
+        };
     }
 }

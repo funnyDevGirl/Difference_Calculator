@@ -11,10 +11,14 @@ import java.util.TreeMap;
 
 
 public class Comparator {
-    public static List<Map<String, Object>> genDiff(Map<String, Object> data1, Map<String, Object> data2)
+    public static List<Map<String, Object>> genDiff(Map<String, Object> data1,
+                                                    Map<String, Object> data2)
             throws NullPointerException {
+
         List<Map<String, Object>> result = new ArrayList<>();
+
         Set<String> keys = new TreeSet<>(data1.keySet());
+
         keys.addAll(data2.keySet());
 
         for (String key : keys) {
@@ -30,8 +34,9 @@ public class Comparator {
 
                 result.add(removed);
 
-                //нет в 1, есть во 2:
+            //нет в 1, есть во 2:
             } else if (!data1.containsKey(key)) {
+
                 Object value2 = !Objects.isNull(data2.get(key)) ? data2.get(key) : null;
 
                 Map<String, Object> addedValues = Map.of("name", key, "type", "added",
@@ -40,36 +45,35 @@ public class Comparator {
 
                 result.add(added);
 
-                //есть в обоих:
-            } else if (data1.containsKey(key) && data2.containsKey(key)) {
+            //есть в обоих, значение изменено:
+            } else if (!isEqual(data1.get(key), data2.get(key))) {
 
-                Object valueForKey1 = data1.get(key);
-                Object valueForKey2 = data2.get(key);
+                Map<String, Object> changedValues = new LinkedHashMap<>();
 
-                //значение изменено:
-                if (!isEqual(valueForKey1, valueForKey2)) {
+                changedValues.put("name", key);
+                changedValues.put("type", "changed");
+                changedValues.put("oldValue", data1.get(key));
+                changedValues.put("newValue", data2.get(key));
 
-                    Map<String, Object> changedValues = new LinkedHashMap<>();
-                    changedValues.put("name", key);
-                    changedValues.put("type", "changed");
-                    changedValues.put("oldValue", valueForKey1);
-                    changedValues.put("newValue", valueForKey2);
-                    Map<String, Object> changed = new TreeMap<>(changedValues);
+                Map<String, Object> changed = new TreeMap<>(changedValues);
 
-                    result.add(changed);
-                    //значение не изменилось:
-                } else {
+                result.add(changed);
 
-                    Map<String, Object> unchangedValues = new LinkedHashMap<>();
-                    unchangedValues.put("name", key);
-                    unchangedValues.put("type", "unchanged");
-                    unchangedValues.put("oldValue", valueForKey1);
-                    Map<String, Object> unchanged = new TreeMap<>(unchangedValues);
+            //есть в обоих, значение не изменилось:
+            } else if (isEqual(data1.get(key), data2.get(key))) {
 
-                    result.add(unchanged);
-                }
+                Map<String, Object> unchangedValues = new LinkedHashMap<>();
+
+                unchangedValues.put("name", key);
+                unchangedValues.put("type", "unchanged");
+                unchangedValues.put("oldValue", data1.get(key));
+
+                Map<String, Object> unchanged = new TreeMap<>(unchangedValues);
+
+                result.add(unchanged);
             }
         }
+
         return result;
     }
 

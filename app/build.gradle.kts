@@ -48,7 +48,7 @@ application {
 }
 
 tasks.compileJava {
-    options.release = 20
+    options.release = 17
     options.compilerArgs.add("-Aproject=${project.group}/${project.name}")
 }
 

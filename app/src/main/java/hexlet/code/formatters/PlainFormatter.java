@@ -1,61 +1,60 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Status;
+import hexlet.code.utils.Util;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import static java.lang.String.format;
+
 
 public class PlainFormatter {
-    public static String render(List<Map<String, Object>> differences) throws Exception {
 
-        var result = new StringBuilder();
+    public static String render(List<Map<String, Object>> differences) {
+
+        StringBuilder result = new StringBuilder();
 
         for (Map<String, Object> map : differences) {
-            for (String s : map.keySet()) {
 
-                Object value = !Objects.isNull(map.get(s)) ? map.get(s) : null;
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
 
-                if (Objects.equals(value, "changed")) {
+                String key = entry.getKey();
+                Status value = (Status) entry.getValue();
+                String status = value.getStatusName();
 
-                    String value1 = stringify(map.get("oldValue"));
-                    String value2 = stringify(map.get("newValue"));
-                    String name = stringify(map.get("name"));
+                switch (status) {
+                    case Status.CHANGED -> {
 
-                    result.append("Property ");
-                    result.append(name + " was updated. From " + value1 + " to " + value2 + "\n");
+                        String oldValue = Util.stringifyForPlain(value.getOldValue());
+                        String newValue = Util.stringifyForPlain(value.getNewValue());
+                        String name = Util.stringifyForPlain(key);
 
-                } else if (Objects.equals(value, "added")) {
+                        result.append(format("Property %s was updated. From %s to %s",
+                                        name, oldValue, newValue))
+                                .append("\n");
 
-                    String value1 = stringify(map.get("newValue"));
+                    }
+                    case Status.ADDED -> {
 
-                    result.append("Property '");
-                    result.append(map.get("name") + "' was added with value: ");
-                    result.append(value1).append("\n");
+                        String newValue = Util.stringifyForPlain(value.getNewValue());
+                        String name = Util.stringifyForPlain(key);
 
-                } else if (Objects.equals(value, "deleted")) {
+                        result.append(format("Property %s was added with value: %s",
+                                        name, newValue))
+                                .append("\n");
 
-                    result.append("Property '");
-                    result.append(map.get("name") + "' was removed").append("\n");
+                    }
+                    case Status.DELETED -> {
+
+                        String name = Util.stringifyForPlain(key);
+
+                        result.append(format("Property %s was removed", name))
+                                .append("\n");
+
+                    }
+                    default -> {}
                 }
             }
         }
         return result.toString().trim();
-    }
-
-    private static String stringify(Object value) {
-
-        if (value == null) {
-            return "null";
-        }
-
-        if (value instanceof String) {
-            return "'" + value + "'";
-        }
-
-        if (value instanceof Map || value instanceof List) {
-            return "[complex value]";
-        }
-
-        // Тип результата всегда должен быть строкой.
-        return value.toString();
     }
 }

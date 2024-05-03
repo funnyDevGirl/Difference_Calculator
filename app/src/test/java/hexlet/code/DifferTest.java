@@ -8,8 +8,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-public class DifferTest {
+public final class DifferTest {
 
+    /**
+     * Генерирует тестовые данные для метода 'generateTest'.
+     * A method call with each of the markers is being tested
+     * as well as a call with the default formatter
+     *
+     * @param format There are 2 input formats (yaml, json)
+     */
     @ParameterizedTest
     @ValueSource(strings = {"json", "yml"})
     public void generateTest(String format) throws Exception {
@@ -17,8 +24,6 @@ public class DifferTest {
         String filePath1 = getFixturePath("file1." + format).toString();
         String filePath2 = getFixturePath("file2." + format).toString();
 
-        // Тестируем вызов метода с каждым из фоматерров,
-        // а также вызов с форматером по умолчанию
         assertThat(Differ.generate(filePath1, filePath2))
                 .isEqualTo(readFixture("stylish.json"));
 

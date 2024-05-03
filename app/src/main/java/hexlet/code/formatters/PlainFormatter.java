@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Status;
-import hexlet.code.utils.Util;
 import java.util.List;
 import java.util.Map;
 import static java.lang.String.format;
@@ -24,9 +23,9 @@ public class PlainFormatter {
                 switch (status) {
                     case Status.CHANGED -> {
 
-                        String oldValue = Util.stringifyForPlain(value.getOldValue());
-                        String newValue = Util.stringifyForPlain(value.getNewValue());
-                        String name = Util.stringifyForPlain(key);
+                        String oldValue = stringify(value.getOldValue());
+                        String newValue = stringify(value.getNewValue());
+                        String name = stringify(key);
 
                         result.append(format("Property %s was updated. From %s to %s",
                                         name, oldValue, newValue))
@@ -35,8 +34,8 @@ public class PlainFormatter {
                     }
                     case Status.ADDED -> {
 
-                        String newValue = Util.stringifyForPlain(value.getNewValue());
-                        String name = Util.stringifyForPlain(key);
+                        String newValue = stringify(value.getNewValue());
+                        String name = stringify(key);
 
                         result.append(format("Property %s was added with value: %s",
                                         name, newValue))
@@ -45,7 +44,7 @@ public class PlainFormatter {
                     }
                     case Status.DELETED -> {
 
-                        String name = Util.stringifyForPlain(key);
+                        String name = stringify(key);
 
                         result.append(format("Property %s was removed", name))
                                 .append("\n");
@@ -58,5 +57,23 @@ public class PlainFormatter {
             }
         }
         return result.toString().trim();
+    }
+
+    private static String stringify(Object value) {
+
+        if (value == null) {
+            return "null";
+        }
+
+        if (value instanceof String) {
+            return "'" + value + "'";
+        }
+
+        if (value instanceof Map || value instanceof List) {
+            return "[complex value]";
+        }
+
+        // Тип результата всегда должен быть строкой.
+        return value.toString();
     }
 }

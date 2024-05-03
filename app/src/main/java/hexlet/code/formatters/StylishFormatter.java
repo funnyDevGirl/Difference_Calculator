@@ -57,6 +57,9 @@ public class StylishFormatter {
 
                         result.append(format("%s %s: %s", NONSYMBOL, name, oldValue)).append("\n");
                     }
+                    default -> {
+                        continue;
+                    }
                 }
             }
         }

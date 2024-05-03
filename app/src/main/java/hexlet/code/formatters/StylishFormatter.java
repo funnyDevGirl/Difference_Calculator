@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Status;
-import hexlet.code.utils.Util;
 import java.util.List;
 import java.util.Map;
 import static java.lang.String.format;
@@ -26,9 +25,9 @@ public class StylishFormatter {
                 switch (status) {
                     case Status.CHANGED -> {
 
-                        String oldValue = Util.stringifyForStylish(value.getOldValue());
-                        String newValue = Util.stringifyForStylish(value.getNewValue());
-                        String name = Util.stringifyForStylish(key);
+                        String oldValue = stringify(value.getOldValue());
+                        String newValue = stringify(value.getNewValue());
+                        String name = stringify(key);
 
                         result.append(format("%s %s: %s", REMOVEDSYMBOL, name, oldValue)).append("\n");
                         result.append(format("%s %s: %s", ADDEDSYMBOL, name, newValue)).append("\n");
@@ -36,24 +35,24 @@ public class StylishFormatter {
                     }
                     case Status.ADDED -> {
 
-                        String newValue = Util.stringifyForStylish(value.getNewValue());
-                        String name = Util.stringifyForStylish(key);
+                        String newValue = stringify(value.getNewValue());
+                        String name = stringify(key);
 
                         result.append(format("%s %s: %s", ADDEDSYMBOL, name, newValue)).append("\n");
 
                     }
                     case Status.DELETED -> {
 
-                        String oldValue = Util.stringifyForStylish(value.getOldValue());
-                        String name = Util.stringifyForStylish(key);
+                        String oldValue = stringify(value.getOldValue());
+                        String name = stringify(key);
 
                         result.append(format("%s %s: %s", REMOVEDSYMBOL, name, oldValue)).append("\n");
 
                     }
                     case Status.UNCHANGED -> {
 
-                        String oldValue = Util.stringifyForStylish(value.getOldValue());
-                        String name = Util.stringifyForStylish(key);
+                        String oldValue = stringify(value.getOldValue());
+                        String name = stringify(key);
 
                         result.append(format("%s %s: %s", NONSYMBOL, name, oldValue)).append("\n");
                     }
@@ -64,5 +63,14 @@ public class StylishFormatter {
             }
         }
         return format("{\n%s}", result);
+    }
+
+    private static String stringify(Object value) {
+
+        if (value == null) {
+            return "null";
+        }
+        // Тип результата всегда должен быть строкой.
+        return value.toString();
     }
 }

@@ -51,7 +51,9 @@ public class PlainFormatter {
                                 .append("\n");
 
                     }
-                    default -> {}
+                    default -> {
+                        continue;
+                    }
                 }
             }
         }

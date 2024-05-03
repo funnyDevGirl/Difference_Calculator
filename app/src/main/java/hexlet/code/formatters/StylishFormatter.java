@@ -1,60 +1,65 @@
 package hexlet.code.formatters;
 
+import hexlet.code.Status;
+import hexlet.code.utils.Util;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import static java.lang.String.format;
+
 
 public class StylishFormatter {
-    private static final String ADDEDSYMBOL = "  + ";
-    private static final String REMOVEDSYMBOL = "  - ";
-    private static final String NONSYMBOL = "    ";
+    private static final String ADDEDSYMBOL = "  +";
+    private static final String REMOVEDSYMBOL = "  -";
+    private static final String NONSYMBOL = "   ";
     public static String render(List<Map<String, Object>> differences) throws Exception {
 
         var result = new StringBuilder();
 
         for (Map<String, Object> map : differences) {
-            for (String s : map.keySet()) {
 
-                Object value = !Objects.isNull(map.get(s)) ? map.get(s) : null;
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
 
-                if (Objects.equals(value, "changed")) {
+                String key = entry.getKey();
+                Status value = (Status) entry.getValue();
+                String status = value.getStatusName();
 
-                    String value1 = stringify(map.get("oldValue"));
-                    String value2 = stringify(map.get("newValue"));
+                switch (status) {
+                    case Status.CHANGED -> {
 
-                    result.append(REMOVEDSYMBOL + map.get("name") + ": " + value1 + "\n");
-                    result.append(ADDEDSYMBOL + map.get("name") + ": " + value2 + "\n");
+                        String oldValue = Util.stringifyForStylish(value.getOldValue());
+                        String newValue = Util.stringifyForStylish(value.getNewValue());
+                        String name = Util.stringifyForStylish(key);
 
-                } else if (Objects.equals(value, "added")) {
+                        result.append(format("%s %s: %s", REMOVEDSYMBOL, name, oldValue)).append("\n");
+                        result.append(format("%s %s: %s", ADDEDSYMBOL, name, newValue)).append("\n");
 
-                    String value1 = stringify(map.get("newValue"));
+                    }
+                    case Status.ADDED -> {
 
-                    result.append(ADDEDSYMBOL + map.get("name") + ": " + value1 + "\n");
+                        String newValue = Util.stringifyForStylish(value.getNewValue());
+                        String name = Util.stringifyForStylish(key);
 
-                } else if (Objects.equals(value, "deleted")) {
+                        result.append(format("%s %s: %s", ADDEDSYMBOL, name, newValue)).append("\n");
 
-                    String value1 = stringify(map.get("oldValue"));
+                    }
+                    case Status.DELETED -> {
 
-                    result.append(REMOVEDSYMBOL + map.get("name") + ": " + value1 + "\n");
+                        String oldValue = Util.stringifyForStylish(value.getOldValue());
+                        String name = Util.stringifyForStylish(key);
 
-                } else if (Objects.equals(value, "unchanged")) {
+                        result.append(format("%s %s: %s", REMOVEDSYMBOL, name, oldValue)).append("\n");
 
-                    String value1 = stringify(map.get("oldValue"));
+                    }
+                    case Status.UNCHANGED -> {
 
-                    result.append(NONSYMBOL + map.get("name") + ": " + value1 + "\n");
+                        String oldValue = Util.stringifyForStylish(value.getOldValue());
+                        String name = Util.stringifyForStylish(key);
+
+                        result.append(format("%s %s: %s", NONSYMBOL, name, oldValue)).append("\n");
+                    }
                 }
             }
         }
-        //return result.append("}\n").toString().trim();
-        return "{\n" + result + "}";
-    }
-
-    private static String stringify(Object value) {
-
-        if (value == null) {
-            return "null";
-        }
-        // Тип результата всегда должен быть строкой.
-        return value.toString();
+        return format("{\n%s}", result);
     }
 }

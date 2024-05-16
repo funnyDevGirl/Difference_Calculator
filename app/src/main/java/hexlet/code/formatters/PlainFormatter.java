@@ -8,54 +8,56 @@ import static java.lang.String.format;
 
 public class PlainFormatter {
 
-    public static String render(List<Map<String, Object>> differences) {
+    public static String render(Map<String, Object> differences) throws Exception {
 
         StringBuilder result = new StringBuilder();
 
-        for (Map<String, Object> map : differences) {
+        for (Map.Entry<String, Object> entry : differences.entrySet()) {
 
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Status value = (Status) entry.getValue();
+            String status = value.getStatusName();
 
-                String key = entry.getKey();
-                Status value = (Status) entry.getValue();
-                String status = value.getStatusName();
+            switch (status) {
+                case Status.CHANGED -> {
 
-                switch (status) {
-                    case Status.CHANGED -> {
+                    String oldValue = stringify(value.getOldValue());
+                    String newValue = stringify(value.getNewValue());
+                    String name = stringify(key);
 
-                        String oldValue = stringify(value.getOldValue());
-                        String newValue = stringify(value.getNewValue());
-                        String name = stringify(key);
+                    result.append(format("Property %s was updated. From %s to %s",
+                                    name, oldValue, newValue))
+                            .append("\n");
 
-                        result.append(format("Property %s was updated. From %s to %s",
-                                        name, oldValue, newValue))
-                                .append("\n");
+                }
+                case Status.ADDED -> {
 
-                    }
-                    case Status.ADDED -> {
+                    String newValue = stringify(value.getNewValue());
+                    String name = stringify(key);
 
-                        String newValue = stringify(value.getNewValue());
-                        String name = stringify(key);
+                    result.append(format("Property %s was added with value: %s",
+                                    name, newValue))
+                            .append("\n");
 
-                        result.append(format("Property %s was added with value: %s",
-                                        name, newValue))
-                                .append("\n");
+                }
+                case Status.DELETED -> {
 
-                    }
-                    case Status.DELETED -> {
+                    String name = stringify(key);
 
-                        String name = stringify(key);
+                    result.append(format("Property %s was removed", name))
+                            .append("\n");
 
-                        result.append(format("Property %s was removed", name))
-                                .append("\n");
+                }
+                case Status.UNCHANGED -> {
+                    continue;
 
-                    }
-                    default -> {
-                        continue;
-                    }
+                }
+                default -> {
+                    throw new Exception("Unknown status: '" + status + "'");
                 }
             }
         }
+
         return result.toString().trim();
     }
 
@@ -73,7 +75,7 @@ public class PlainFormatter {
             return "[complex value]";
         }
 
-        // Тип результата всегда должен быть строкой.
+        // Тип результата всегда должен быть строкой
         return value.toString();
     }
 }

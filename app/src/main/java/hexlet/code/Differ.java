@@ -3,34 +3,25 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 
+
 public class Differ {
-    public static String generate(String filepath1, String filepath2, String stylish) throws Exception {
+    public static String generate(String firstFilepath, String secondFilepath, String formatName)
+            throws Exception {
         //формирую мапы с ключами-значениями:
-        Map<String, Object> preparedDataFromFile1 = getData(filepath1);
-        Map<String, Object> preparedDataFromFile2 = getData(filepath2);
+        Map<String, Object> parsedFirstFile = getData(firstFilepath);
+        Map<String, Object> parsedSecondFile = getData(secondFilepath);
 
         //словарь с изменениями:
-        List<Map<String, Object>> differences = Comparator.genDiff(preparedDataFromFile1, preparedDataFromFile2);
+        Map<String, Object> differences = Comparator.genDiff(parsedFirstFile, parsedSecondFile);
 
-        return switch (stylish) {
-            case "json" -> Formatter.generateJson(differences);
-            case "stylish" -> Formatter.generateStylish(differences);
-            case "plain" -> Formatter.generatePlain(differences);
-            default -> throw new Exception("Unknown format: '" + stylish + "'");
-        };
+        return Formatter.format(differences, formatName);
     }
 
     //делаю перегрузку метода generate():
     public static String generate(String filepath1, String filepath2) throws Exception {
-
-        Map<String, Object> preparedDataFromFile1 = getData(filepath1);
-        Map<String, Object> preparedDataFromFile2 = getData(filepath2);
-
-        List<Map<String, Object>> differences = Comparator.genDiff(preparedDataFromFile1, preparedDataFromFile2);
-        return Formatter.generateStylish(differences);
+        return generate(filepath1, filepath2, "stylish");
     }
 
 

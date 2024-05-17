@@ -7,10 +7,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
-public class Comparator {
+public class Comparison {
     public static Map<String, Object> genDiff(Map<String, Object> data1,
-                                              Map<String, Object> data2)
-            throws NullPointerException {
+                                              Map<String, Object> data2) {
 
         Map<String, Object> result = new LinkedHashMap<>();
 

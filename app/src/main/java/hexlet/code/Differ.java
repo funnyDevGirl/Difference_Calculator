@@ -9,12 +9,13 @@ import java.util.Map;
 public class Differ {
     public static String generate(String firstFilepath, String secondFilepath, String formatName)
             throws Exception {
+
         //формирую мапы с ключами-значениями:
         Map<String, Object> parsedFirstFile = getData(firstFilepath);
         Map<String, Object> parsedSecondFile = getData(secondFilepath);
 
         //словарь с изменениями:
-        Map<String, Object> differences = Comparator.genDiff(parsedFirstFile, parsedSecondFile);
+        Map<String, Object> differences = Comparison.genDiff(parsedFirstFile, parsedSecondFile);
 
         return Formatter.format(differences, formatName);
     }
